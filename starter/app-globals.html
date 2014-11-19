@@ -1,15 +1,18 @@
-<polymer-element name="app-globals">
+<polymer-element name="app-globals" attributes="values">
     <script>
     (function() {
-        // these variables are shared by all instances of app-globals
-        var firstName = 'Plumpertron';
-        var lastName = 'McBumblePodge';
+        var values = {};
 
         Polymer({
              ready: function() {
-                 // copy global values into instance properties
-                 this.firstName = firstName;
-                 this.lastName = lastName;
+                 var i, attr;
+
+                 this.values = values;
+
+                 for (var i = 0; i < this.attributes.length; ++i) {
+                     attr = this.attributes[i];
+                     values[attr.nodeName] = attr.value;
+                 }
              }
         });
     })();

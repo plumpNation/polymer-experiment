@@ -5,12 +5,44 @@
         Polymer('fui-drawer', {
             publiVar: 'I am public',
 
-            get maPublics() {
+            get maGlobal() {
+                return this.$.globals.values.firstname + ' ' + this.$.globals.values.lastname;
+            },
+
+            get maPublic() {
                 return this.publiVar;
             },
 
-            get maPrivates() {
+            get maPrivate() {
                 return privaVar;
+            },
+
+            ready: function () {
+                console.log('I am ready!');
+                // console.log(this.maGlobal);
+                // console.log(this.maPublic);
+                // console.log(this.maPrivate);
+            },
+
+            attached: function () {
+                console.log('I am attached!');
+            },
+
+            domReady: function () {
+                console.log('Tha DOM is ready!');
+            },
+
+            detached: function () {
+                console.log('I am detached!');
+            },
+
+            attributeChanged: function (attrName, oldVal, newVal) {
+                console.log('The ' + attrName + ' attribute was changed!');
+                console.log('It was ' + oldVal + ', and now it\'s ' + newVal);
+            },
+
+            created: function () {
+                console.log('I am created!');
             }
         });
 
@@ -28,8 +60,8 @@
         <!-- shadow DOM here -->
         <h1>BOOM</h1>
         <div class="ma-name">
-            <span id="firstname">{{$.globals.firstName}}</span>
-            <span id="lastname">{{$.globals.lastName}}</span>
+            <span id="firstname">{{$.globals.values.firstname}}</span>
+            <span id="lastname">{{$.globals.values.lastname}}</span>
         </div>
     </template>
 </polymer-element>
