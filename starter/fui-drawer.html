@@ -1,0 +1,35 @@
+<script>
+    (function () {
+        var privaVar = 'I am private';
+
+        Polymer('fui-drawer', {
+            publiVar: 'I am public',
+
+            get maPublics() {
+                return this.publiVar;
+            },
+
+            get maPrivates() {
+                return privaVar;
+            }
+        });
+
+    }());
+</script>
+
+<polymer-element name="fui-drawer" class="fui-drawer closed" constructor="FuiDrawer">
+    <style media="screen">
+        ::host {
+            border: thin solid black;
+        }
+    </style>
+    <template>
+        <app-globals id="globals"></app-globals>
+        <!-- shadow DOM here -->
+        <h1>BOOM</h1>
+        <div class="ma-name">
+            <span id="firstname">{{$.globals.firstName}}</span>
+            <span id="lastname">{{$.globals.lastName}}</span>
+        </div>
+    </template>
+</polymer-element>
