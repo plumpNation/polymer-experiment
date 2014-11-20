@@ -9,6 +9,21 @@
             // Not exposed by publish, and not in the registered in 'attributes'.
             publicVar: 'I am still not public',
 
+            get maGlobal() {
+                return this.$.globals.values.firstname + ' ' + this.$.globals.values.lastname;
+            },
+
+            // this acts like a property, not a function
+            get maPublic() {
+                return this.publicVar;
+            },
+
+            maPrivate: function() {
+                return privaVar;
+            },
+
+            // FANCY PANTSERY GOING ON BELOW
+
             publish: {
                 reflected: {
                     value: '',
@@ -23,22 +38,19 @@
                     // If name is set to reflect, the DOM attribute reflects the current value of
                     // someValue.
                     reflect: true
+                },
+
+                total: {
+                    value: 0, // Type hinting?
+                    reflect: true
                 }
             },
 
-            get maGlobal() {
-                return this.$.globals.values.firstname + ' ' + this.$.globals.values.lastname;
+            computed: {
+                total: '+count + 50' // Notice the 'casting' of count to a Number
             },
 
-            // this acts like a property, not a function
-            get maPublic() {
-                return this.publicVar;
-            },
-
-            maPrivate: function() {
-                return privaVar;
-            },
-
+            // LIFECYCLE PROPERTIES
             created: function () {
                 console.log('I am created!');
 
@@ -60,6 +72,9 @@
                 console.log('I am attached!');
             },
 
+            /**
+             * Looks just like $scope.$watch from angular!
+             */
             attributeChanged: function (attrName, oldVal, newVal) {
                 console.log('The ' + attrName + ' attribute was changed!');
                 console.log('It was ' + oldVal + ', and now it\'s ' + newVal);
@@ -77,13 +92,12 @@
     }());
 </script>
 
+<!--
+    Name and constructor do not count as attributes here, and are not exposed in the composed DOM.
+    This also means that they have nothing to do with the 'attributeChanged' life cycle property
+-->
 <polymer-element name="x-foo" class="x-foo" constructor="XFoo"
     attributes="count config list">
-    <style media="screen">
-        ::host {
-            border: thin solid black;
-        }
-    </style>
     <template>
         <app-globals id="globals"></app-globals>
         <!-- shadow DOM here -->
