@@ -62,8 +62,41 @@
             },
 
             // CHANGE EVENTS
-            totalChanged: function () {
-                console.log(this.total);
+            totalChanged: function (oldValue, newValue) {
+                console.log('total updated');
+                console.log('Was', oldValue, 'now', newValue);
+            },
+
+            observe: {
+                config: {
+                    foobar: 'validateConfigFoobar' // notice this can be a nested observation!!! wow, such things :)
+                },
+
+                // We can also use a string with dot notation to set up an observer, even on the same object!
+                'config.gazonk': 'validateConfigGazonk',
+                'config.woop.nested': 'validateWoopNested'
+            },
+
+            // THIS IS NOT CALLED when observing using 'observe' even if we are only observing the
+            // properties on the object.
+            configChanged: function (oldValue, newValue) {
+                console.log('=========CONFIG CHANGED=========');
+            },
+
+            validateWoopNested: function (oldValue, newValue) {
+                var value = Path.get('config.woop.nested').getValueFrom(this);
+                console.log('Validate config.woop.nested', value);
+            },
+
+            validateConfigFoobar: function (oldValue, newValue) {
+                console.log('foobar updated');
+                console.log('Was', oldValue, 'now', newValue);
+            },
+
+            // if we use this 'observe' technique then even if we had a configChanged
+            validateConfigGazonk: function (oldValue, newValue) {
+                console.log('gazonk updated');
+                console.log('Was', oldValue, 'now', newValue);
             },
 
             // EVENT HANDLERS
@@ -124,12 +157,18 @@
     <template>
         <app-globals id="globals"></app-globals>
         <!-- shadow DOM here -->
-        <h1>BOOM</h1>
+        <h1>{{config.gazonk || 'BOOM'}}</h1>
         <button>Click Me!</button>
+
+        <section>
+            <span>{{config.foobar}}</span>
+        </section>
+
         <div class="ma-name">
             <span id="firstname">{{$.globals.values.firstname}}</span>
             <span id="lastname">{{$.globals.values.lastname}}</span>
         </div>
+
         <div>
             <span>I am two way bound: {{count}}</span>
         </div>
