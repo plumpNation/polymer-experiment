@@ -9,31 +9,18 @@
 
         <link rel="import" href="../components/polymer/polymer.html">
         <link rel="import" href="../components/font-roboto/roboto.html">
-        <link rel="import" href="app-globals.html">
-        <link rel="import" href="fui-drawer.html">
+        <link rel="import" href="./app-globals.html">
+        <link rel="import" href="./x-foo.html">
         <link rel="stylesheet" href="styles.css" media="screen" charset="utf-8">
-        <script charset="utf-8">
-            var count = 0;
-
-            function onSlide(val) {
-                console.log(val);
-                count = val;
-            }
-        </script>
     </head>
 
     <body unresolved>
         <div class="container">
             <app-globals firstname="Plumpertron" lastname="McBumblePodge"></app-globals>
-            <fui-drawer count="{{count}}" publiVar="boonar" refelected="shouldChange"></fui-drawer>
-            <input type="range" min="0" max="1000" oninput="onSlide(this.value)">
+            <x-foo id="boonar" count="{{count}}" publiVar="boonar" refelected="shouldChange"></x-foo>
+            <input id="slider" type="range" min="0" max="1000">
         </div>
 
-
-        <script charset="utf-8">
-            window.addEventListener('polymer-ready', function (e) {
-                console.log('POLYMER IS READY FOR YOUR SHITTY CODE!!!');
-            });
-        </script>
+        <script src="app-controller.js"></script>
     </body>
 </html>
