@@ -102,6 +102,9 @@
             // EVENT HANDLERS
             elementClick: function (event, detail, sender) {
                 console.log('clicking the thing');
+
+                // CUSTOM EVENTS
+                this.fire('OUCH_MOTHERFUCKER', {message: 'You are a twat!'});
             },
 
 
@@ -152,13 +155,13 @@
     This also means that they have nothing to do with the 'attributeChanged' life cycle property
 -->
 <polymer-element name="x-foo" class="x-foo" constructor="XFoo"
-
+    on-click="{{elementClick}}"
     attributes="count config list">
     <template>
         <app-globals id="globals"></app-globals>
         <!-- shadow DOM here -->
         <h1>{{config.gazonk || 'BOOM'}}</h1>
-        <button>Click Me!</button>
+        <button>Send PAIN!</button>
 
         <section>
             <span>{{config.foobar}}</span>

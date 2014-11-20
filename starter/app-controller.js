@@ -12,6 +12,11 @@
     slider.addEventListener('change', onSlide, false); // for IE11 :)
     slider.addEventListener('input', onSlide, false);
 
+    // CUSTOM EVENT from the x-foo tag.
+    element.addEventListener('OUCH_MOTHERFUCKER', function (e) {
+        console.log(e.detail.message);
+    }, false);
+
     window.setTimeout(function () {
         element.config = {
             foobar: 'I am an UPDATED config value',
