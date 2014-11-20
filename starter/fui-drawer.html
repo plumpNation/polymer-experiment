@@ -3,29 +3,66 @@
         var privaVar = 'I am private';
 
         Polymer('fui-drawer', {
-            publiVar: 'I am public',
+            // Type hinting!!! Now Polymer knows 'widthBreak' is a typeof number.
+            count: 900,
+
+            // Not exposed by publish, and not in the registered in 'attributes'.
+            publicVar: 'I am still not public',
+
+            publish: {
+                reflected: {
+                    value: '',
+                    // If the property value is an object, array, or function,
+                    // the value is NEVER reflected, whether or not reflect is true.
+                    // The best way to think of reflection is that it is for something that should
+                    // be reflected in the DOM. A candidate for this would be 'disabled' or
+                    // 'checked', things that make a difference to the styling of an element.
+                    // It is NOT 2 way data binding!! It can however be used WITH data binding.
+                    // If a two way bound attribute is not set to reflect, that attribute always
+                    // shows up as the-attr="{{someValue}}" in the DOM.
+                    // If name is set to reflect, the DOM attribute reflects the current value of
+                    // someValue.
+                    reflect: true
+                }
+            },
 
             get maGlobal() {
                 return this.$.globals.values.firstname + ' ' + this.$.globals.values.lastname;
             },
 
+            // this acts like a property, not a function
             get maPublic() {
-                return this.publiVar;
+                return this.publicVar;
             },
 
-            get maPrivate() {
+            maPrivate: function() {
                 return privaVar;
+            },
+
+            created: function () {
+                console.log('I am created!');
+
+                // Type hinting for an array or an object should take place in the created to avoid
+                // shitty "shared state" issues. Fuck knows what that is.
+                // Objects and arrays cannot be reflected.
+                this.config = {};
+                this.list = [];
             },
 
             ready: function () {
                 console.log('I am ready!');
-                // console.log(this.maGlobal);
-                // console.log(this.maPublic);
-                // console.log(this.maPrivate);
+                console.log(this.maPrivate());
+                console.log(this.maPublic);
+                console.log(typeof this.count);
             },
 
             attached: function () {
                 console.log('I am attached!');
+            },
+
+            attributeChanged: function (attrName, oldVal, newVal) {
+                console.log('The ' + attrName + ' attribute was changed!');
+                console.log('It was ' + oldVal + ', and now it\'s ' + newVal);
             },
 
             domReady: function () {
@@ -34,22 +71,14 @@
 
             detached: function () {
                 console.log('I am detached!');
-            },
-
-            attributeChanged: function (attrName, oldVal, newVal) {
-                console.log('The ' + attrName + ' attribute was changed!');
-                console.log('It was ' + oldVal + ', and now it\'s ' + newVal);
-            },
-
-            created: function () {
-                console.log('I am created!');
             }
         });
 
     }());
 </script>
 
-<polymer-element name="fui-drawer" class="fui-drawer closed" constructor="FuiDrawer">
+<polymer-element name="fui-drawer" class="fui-drawer closed" constructor="FuiDrawer"
+    attributes="count config list">
     <style media="screen">
         ::host {
             border: thin solid black;
@@ -62,6 +91,9 @@
         <div class="ma-name">
             <span id="firstname">{{$.globals.values.firstname}}</span>
             <span id="lastname">{{$.globals.values.lastname}}</span>
+        </div>
+        <div>
+            <span>I am two way bound: {{count}}</span>
         </div>
     </template>
 </polymer-element>
