@@ -50,6 +50,28 @@
                 total: '+count + 50' // Notice the 'casting' of count to a Number
             },
 
+            // EVENT DELEGATORS: Imperative stylee
+            // This code is equivalent to adding an on-event handler directly on a <polymer-element>.
+            eventDelegates: {
+                up: 'onTap',
+                down: 'onTap'
+            },
+
+            onTap: function (event, detail, sender) {
+                console.log(event.type);
+            },
+
+            // CHANGE EVENTS
+            totalChanged: function () {
+                console.log(this.total);
+            },
+
+            // EVENT HANDLERS
+            elementClick: function (event, detail, sender) {
+                console.log('clicking the thing');
+            },
+
+
             // LIFECYCLE PROPERTIES
             created: function () {
                 console.log('I am created!');
@@ -65,7 +87,7 @@
                 console.log('I am ready!');
                 console.log(this.maPrivate());
                 console.log(this.maPublic);
-                console.log(typeof this.count);
+                console.log('Count is type: ' + (typeof this.count));
             },
 
             attached: function () {
@@ -97,11 +119,13 @@
     This also means that they have nothing to do with the 'attributeChanged' life cycle property
 -->
 <polymer-element name="x-foo" class="x-foo" constructor="XFoo"
+
     attributes="count config list">
     <template>
         <app-globals id="globals"></app-globals>
         <!-- shadow DOM here -->
         <h1>BOOM</h1>
+        <button>Click Me!</button>
         <div class="ma-name">
             <span id="firstname">{{$.globals.values.firstname}}</span>
             <span id="lastname">{{$.globals.values.lastname}}</span>
