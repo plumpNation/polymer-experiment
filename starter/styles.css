@@ -8,15 +8,13 @@ body {
 
 .container {
     width: 80%;
-    margin: 50px auto;
 }
 
-@media (min-width: 481px) {
-    #tabs {
-        width: 200px;
-    }
+.loading {
+    font-family: Arial;
+}
 
-    .container {
-        width: 400px;
-    }
+[unresolved] {
+    opacity: 0;
+    /* other custom styles for unresolved elements */
 }

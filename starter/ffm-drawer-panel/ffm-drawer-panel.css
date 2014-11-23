@@ -1,0 +1,12 @@
+polyfill-next-selector {content: 'core-drawer-panel::shadow #scrim'}
+::content {
+    background: red;
+}
+
+#main {
+
+}
+
+#drawer {
+    background-color: yellow;
+}

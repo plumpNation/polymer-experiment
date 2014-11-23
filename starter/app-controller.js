@@ -28,10 +28,21 @@
     }, 1000);
 
     window.addEventListener('polymer-ready', function (e) {
+        resolveApplication();
+
         element.config = {
             foobar: 'I am a config value'
         };
 
+
+        document.querySelector('.loading').remove();
+
         console.log('POLYMER IS READY FOR YOUR SHITTY CODE!!!');
     });
+
+    function resolveApplication() {
+        var resolveDiv = document.getElementById('resolver');
+        resolveDiv.setAttribute('resolved', '');
+        resolveDiv.removeAttribute('unresolved');
+    }
 }());

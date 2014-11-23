@@ -6,7 +6,13 @@
         Polymer({
             elementClick: function () {
                 console.log('I don\'t want to hurt anybody');
-            }
+            },
+
+            onTap: function (event, detail, sender) {
+                event.stopPropagation();
+                this.super(arguments);
+                console.log('WHy you touchin´ me?');
+            },
         });
     </script>
 </polymer-element>

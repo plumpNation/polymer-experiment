@@ -7,24 +7,33 @@
 
         <script src="../components/webcomponentsjs/webcomponents.js"></script>
 
-        <link rel="import" href="../components/polymer/polymer.html">
-        <link rel="import" href="../components/font-roboto/roboto.html">
         <link rel="import" href="./app-globals.html">
+        <link rel="import" href="../components/font-roboto/roboto.html">
+        <link rel="import" href="ffm-drawer-panel/ffm-drawer-panel.html">
         <link rel="import" href="./x-foo.html">
         <link rel="import" href="./x-bar.html">
+
         <link rel="stylesheet" href="styles.css" media="screen" charset="utf-8">
     </head>
 
-    <body unresolved>
-        <div class="container">
-            <app-globals firstname="Plumpertron" lastname="McBumblePodge"></app-globals>
-            <x-foo id="boonar" config="{{object}}" count="{{count}}" publiVar="boonar" refelected="shouldChange"></x-foo>
-            <input id="slider" type="range" min="0" max="1000">
-        </div>
-        <div class="container">Extending the x-foo component with the x-bar one, and making it a pacifist :)
-            Click the button and see the difference in the console.</div>
-        <div class="container">
-            <x-bar></xbar>
+    <body >
+        <div class="loading">Loading...</div>
+
+        <div id="resolver" unresolved>
+            <ffm-drawer-panel>
+                <div>
+                    <div class="container">
+                        <app-globals firstname="Plumpertron" lastname="McBumblePodge"></app-globals>
+                        <x-foo id="boonar" config="{{object}}" count="{{count}}" publiVar="boonar" refelected="shouldChange"></x-foo>
+                        <input id="slider" type="range" min="0" max="1000">
+                    </div>
+                    <div class="container">Extending the x-foo component with the x-bar one, and making it a pacifist :)
+                        Click the button and see the difference in the console.</div>
+                    <div class="container">
+                        <x-bar></xbar>
+                    </div>
+                </div>
+            </ffm-drawer-panel>
         </div>
 
         <script src="app-controller.js"></script>

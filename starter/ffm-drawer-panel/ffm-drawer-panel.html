@@ -1,0 +1,27 @@
+<link rel="import" href="../../components/core-drawer-panel/core-drawer-panel.html">
+
+<!-- maybe we don't want to extend the drawer, maybe be want compositional inheritence instead. -->
+<polymer-element name="ffm-drawer-panel">
+    <!-- NOTE: that the template here contains the drawer attribute so is treated like the
+    Light DOM for the core-drawer-panel -->
+    <template>
+        <link rel="stylesheet" href="ffm-drawer-panel.css" media="screen" title="no title" charset="utf-8">
+        <core-drawer-panel>
+            <div drawer id="drawer">
+                Drawer
+            </div>
+            <div main id="main">
+                <div>
+                    <button core-drawer-toggle>toggle drawer</button>
+                    <content></content>
+                </div>
+            </div>
+        </core-drawer-panel>
+    </template>
+    <script>
+
+      Polymer('ffm-drawer-panel', {
+
+      });
+    </script>
+</polymer-element>
